@@ -1,5 +1,6 @@
 package eu.tutorials.unitconverter
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -28,9 +29,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import eu.tutorials.unitconverter.ui.theme.UnitConverterTheme
+import java.time.format.TextStyle
 import kotlin.math.roundToInt
 
 class MainActivity : ComponentActivity() {
@@ -61,6 +65,11 @@ fun UnitConverter() {
     val conversionFactor = remember { mutableStateOf(1.00) }
     val oConversionFactor = remember { mutableStateOf(1.00) }
 
+    val customTextStyle = androidx.compose.ui.text.TextStyle(
+        fontFamily = FontFamily.Default,
+        fontSize = 16.sp,
+    )
+
     fun convertUnits() {
         // ?: - elvis operator
         val inputValueDouble = inputValue.toDoubleOrNull() ?: 0.0
@@ -73,7 +82,7 @@ fun UnitConverter() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text("Unit Converter")
+        Text("Unit Converter", style = customTextStyle)
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
             value = inputValue,
@@ -176,7 +185,9 @@ fun UnitConverter() {
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
-        Text("Result:$outputValue")
+        Text("Result:$outputValue",
+            style = MaterialTheme.typography.headlineMedium
+        )
     }
 }
 
